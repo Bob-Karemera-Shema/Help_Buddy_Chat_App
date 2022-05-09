@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "693031901980",
+    "firebase_url": "https://helpbuddy-20-default-rtdb.firebaseio.com",
+    "project_id": "helpbuddy-20",
+    "storage_bucket": "helpbuddy-20.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:693031901980:android:1290b80bfe01f6bc3bf8d9",
+        "android_client_info": {
+          "package_name": "com.example.help_buddy_chat_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "693031901980-5n65nb0oj0mb256oa0l65vn4ammk9dsr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7ody4q88T89k_onfodwWQagWb0rxZTMc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "693031901980-5n65nb0oj0mb256oa0l65vn4ammk9dsr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
