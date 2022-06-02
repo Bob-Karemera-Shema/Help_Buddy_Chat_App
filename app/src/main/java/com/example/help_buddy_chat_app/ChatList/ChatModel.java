@@ -4,13 +4,15 @@ public class ChatModel {
 
     private String userId;
     private String userName;
+    private String userPicture;
     private String unreadCount;
     private String lastMessage;
     private String lastMessageTime;
 
-    public ChatModel(String userId, String userName, String unreadCount, String lastMessage, String lastMessageTime) {
+    public ChatModel(String userId, String userName, String userPicture, String unreadCount, String lastMessage, String lastMessageTime) {
         this.userId = userId;
         this.userName = userName;
+        this.userPicture = userPicture;
         this.unreadCount = unreadCount;
         this.lastMessage = lastMessage;
         this.lastMessageTime = lastMessageTime;
@@ -30,6 +32,14 @@ public class ChatModel {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getUserPicture() {
+        return userPicture;
+    }
+
+    public void setUserPicture(String userPicture) {
+        this.userPicture = userPicture;
     }
 
     public String getUnreadCount() {

@@ -1,25 +1,32 @@
 package com.example.help_buddy_chat_app.People;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.example.help_buddy_chat_app.Common.Connection;
 import com.example.help_buddy_chat_app.Common.Constants;
 import com.example.help_buddy_chat_app.Common.NodeNames;
 import com.example.help_buddy_chat_app.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.List;
 
@@ -54,6 +61,20 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.AddPeopleV
 
         //load user information to UI
         holder.userName.setText(people.getUserName());
+
+        //Get reference to firebase storage for user's profile picture
+        StorageReference fileLocation = FirebaseStorage.getInstance().getReference()
+                .child(Constants.imageLocation + "/" + people.getUserPicture());
+        fileLocation.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Glide.with(context)
+                        .load(uri)
+                        .placeholder(R.drawable.default_profile)
+                        .error(R.drawable.default_profile)
+                        .into(holder.userProfile);
+            }
+        });
 
         //Get reference to friend_request node on Firebase database
         databaseReferenceRequests = FirebaseDatabase.getInstance().getReference()
@@ -114,6 +135,12 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.AddPeopleV
                                             {
                                                 Toast.makeText(context, R.string.friend_request_sent_string,
                                                         Toast.LENGTH_SHORT).show();
+
+                                                //Send friend request notification to friend being added
+                                                String title = "New Friend Request";
+                                                String message = "Friend request from " + currentUser.getDisplayName();
+                                                Connection.sendNotification(context, title, message, userID);
+
                                                 holder.btnAddPerson.setVisibility(View.GONE);
                                                 holder.btnCancelRequest.setVisibility(View.VISIBLE);
                                             }
@@ -207,6 +234,7 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.AddPeopleV
 
         //Declare UI components objects in people layout file
         private TextView userName;
+        private ImageView userProfile;
         private Button btnAddPerson, btnCancelRequest;
 
         public AddPeopleViewHolder(@NonNull View itemView) {
@@ -214,6 +242,7 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.AddPeopleV
 
             //initialise UI component objects
             userName = itemView.findViewById(R.id.userNamePeople);
+            userProfile = itemView.findViewById(R.id.ivProfilePeople);
             btnAddPerson = itemView.findViewById(R.id.btnAddPerson);
             btnCancelRequest = itemView.findViewById(R.id.btnCancelRequest);
         }

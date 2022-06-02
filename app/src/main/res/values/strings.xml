@@ -58,4 +58,27 @@
     <string name="type_message">Type Message</string>
     <string name="failed_to_message">Message not sent: %1$s</string>
     <string name="message_sent">Message sent</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="video">Video</string>
+    <string name="upload_progress">Uploading %1$s (%2$s %%)</string>
+    <string name="failed_to_send_file">Failed to send file: %1$s</string>
+    <string name="forward">Forward</string>
+    <string name="delete">Delete</string>
+    <string name="share">Share</string>
+    <string name="download">Download</string>
+    <string name="failed_to_delete">Failed to delete message: %1$s</string>
+    <string name="message_deleted">Message Deleted</string>
+    <string name="failed_to_delete_file">Failed to delete file: %1$s</string>
+    <string name="failed_to_download_file">Failed to download file</string>
+    <string name="download_progress">Downloading %1$s (%2$s %%)</string>
+    <string name="file_downloaded">File downloaded successfully</string>
+    <string name="view">view</string>
+    <string name="failed_to_download">Failed to download file: %1$s</string>
+    <string name="share_with">Share with</string>
+    <string name="failed_to_fetch_friends">Failed to fetch friends: %1$s</string>
+    <string name="failed_to_register_token">Failed to register device token</string>
+    <string name="notification_not_sent">Notification not sent: %1$s</string>
+    <string name="cant_log_out">Couldn\'t log out: %1$s</string>
+    <string name="something_went_wrong">Something went wrong: %1$s</string>
 </resources>

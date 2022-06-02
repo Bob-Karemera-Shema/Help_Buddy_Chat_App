@@ -17,11 +17,14 @@ import com.example.help_buddy_chat_app.R;
 import com.example.help_buddy_chat_app.PasswordRelated.ResetPasswordActivity;
 import com.example.help_buddy_chat_app.SignUp.SignUpActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.installations.FirebaseInstallations;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -60,6 +63,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         if(firebaseUser != null)
         {
+            //Register device token when logging in the app
+            FirebaseInstallations.getInstance().getId().addOnSuccessListener(new OnSuccessListener<String>() {
+                @Override
+                public void onSuccess(String s) {
+                    Connection.updateDeviceToken(LoginActivity.this, s);
+                }
+            });
+
             //if user is already logged in, go to main page
             startActivity(new Intent(LoginActivity.this, HomePageActivity.class));
             finish();       //method to ensure back button clicks don't take user to login screen

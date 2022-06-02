@@ -94,7 +94,7 @@ public class PeopleFragment extends Fragment {
                 //iterate through each user and add each user to people list to be shown
                 for (DataSnapshot dataSnapshot : snapshot.getChildren())
                 {
-                    final String userId = dataSnapshot.getKey();
+                    String userId = dataSnapshot.getKey();
 
                     if(userId.equals(currentUser.getUid())) {
                         //to avoid loading current user info and displaying it on people screen
@@ -105,7 +105,9 @@ public class PeopleFragment extends Fragment {
 
                     if (dataSnapshot.child(NodeNames.name).getValue() != null)
                     {
-                            final String userName = dataSnapshot.child(NodeNames.name).getValue()
+                            String userName = dataSnapshot.child(NodeNames.name).getValue()
+                                    .toString();
+                            String userPicture = dataSnapshot.child(NodeNames.picture).getValue()
                                     .toString();
 
                             databaseReferenceRequests.child(userId)
@@ -123,7 +125,7 @@ public class PeopleFragment extends Fragment {
                                         {
                                             //Add user to people list without add friend button
                                             //Because current user has already sent a friend request to the user
-                                            peopleList.add(new People(userName,
+                                            peopleList.add(new People(userName, userPicture,
                                                     userId, true));
                                             //notify people adapter of new record fetched from database
                                             peopleAdapter.notifyDataSetChanged();
@@ -132,7 +134,7 @@ public class PeopleFragment extends Fragment {
                                     else
                                     {
                                         //Add user to people list with add friend button visible
-                                        peopleList.add(new People(userName,
+                                        peopleList.add(new People(userName, userPicture,
                                                 userId, false));
                                         peopleAdapter.notifyDataSetChanged();
                                     }
@@ -161,5 +163,7 @@ public class PeopleFragment extends Fragment {
                 tvNoPeople.setVisibility(View.VISIBLE);
             }
         });
+        tvNoPeople.setVisibility(View.VISIBLE);
+        loadingPeopleProgress.setVisibility(View.GONE);
     }
 }

@@ -36,7 +36,39 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="4dp"
             android:layout_marginEnd="4dp"
-            android:gravity="bottom"
+            android:layout_gravity="bottom"
+            android:textSize="12sp"
+            tools:text="09:00"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llSentImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/sent_msg_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearSend"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <ImageView
+            android:id="@+id/ivSent"
+            android:layout_width="90dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_image"/>
+
+        <TextView
+            android:id="@+id/tvSentImageTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_gravity="bottom|end"
             android:textSize="12sp"
             tools:text="09:00"
             android:textColor="@color/white" />
@@ -70,8 +102,42 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="4dp"
-            android:gravity="bottom"
+            android:layout_gravity="bottom"
             android:textSize="12sp"
             tools:text="09:00" />
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llReceivedImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/sent_msg_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearReceived"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <ImageView
+            android:id="@+id/ivReceived"
+            android:layout_width="90dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_image"/>
+
+        <TextView
+            android:id="@+id/tvReceivedImageTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_gravity="bottom|end"
+            android:textSize="12sp"
+            tools:text="09:00"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,10 +1,10 @@
-package com.example.help_buddy_chat_app.Requests;
+package com.example.help_buddy_chat_app.SelectFriend;
 
-public class Request {
+public class SelectFriendModel {
 
     private String userId, userName, userPicture;
 
-    public Request(String userId, String userName, String userPicture) {
+    public SelectFriendModel(String userId, String userName, String userPicture) {
         this.userId = userId;
         this.userName = userName;
         this.userPicture = userPicture;
@@ -26,7 +26,11 @@ public class Request {
         this.userName = userName;
     }
 
-    public String getUserPicture() { return userPicture; }
+    public String getUserPicture() {
+        return userPicture;
+    }
 
-    public void setUserPicture(String userPicture) { this.userPicture = userPicture; }
+    public void setUserPicture(String userPicture) {
+        this.userPicture = userPicture;
+    }
 }

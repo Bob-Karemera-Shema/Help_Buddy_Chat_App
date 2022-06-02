@@ -14,11 +14,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.help_buddy_chat_app.ChatList.ChatFragment;
+import com.example.help_buddy_chat_app.Common.NodeNames;
 import com.example.help_buddy_chat_app.People.PeopleFragment;
 import com.example.help_buddy_chat_app.Profile.ProfileActivity;
 import com.example.help_buddy_chat_app.R;
 import com.example.help_buddy_chat_app.Requests.RequestsFragment;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class HomePageActivity extends AppCompatActivity {
 
@@ -35,6 +40,15 @@ public class HomePageActivity extends AppCompatActivity {
         leaveApp = false;
         homeTab = findViewById(R.id.homeTab);
         vpHome = findViewById(R.id.vpHome);
+
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+
+        DatabaseReference databaseReferenceUsers = FirebaseDatabase.getInstance().getReference()
+                .child(NodeNames.users).child(currentUser.getUid());
+
+        databaseReferenceUsers.child(NodeNames.online).setValue(true);
+        databaseReferenceUsers.child(NodeNames.online).onDisconnect().setValue(false);
 
         initialiseViewPager();
     }

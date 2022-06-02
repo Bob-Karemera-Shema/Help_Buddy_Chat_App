@@ -67,7 +67,6 @@ public class RequestsFragment extends Fragment {
         progressBar = view.findViewById(R.id.progressBarRequests);
 
         rvRequests.setLayoutManager(new LinearLayoutManager(getActivity()));
-
         requestList = new ArrayList<>();
         requestAdapter = new RequestAdapter(getActivity(), requestList);
         rvRequests.setAdapter(requestAdapter);
@@ -113,10 +112,17 @@ public class RequestsFragment extends Fragment {
                                             .getValue()!=null?
                                             snapshot.child(NodeNames.name)
                                                     .getValue().toString():"Unknown User";
+                                    String userPicture = "";
+
+                                    if(!snapshot.child(NodeNames.picture).getValue().toString().equals(""))
+                                    {
+                                        userPicture = snapshot.child(NodeNames.picture)
+                                                .getValue().toString();
+                                    }
 
                                     //create request object and add it to lists of requests to be shown
                                         Request request = new Request(userId,
-                                                userName);
+                                                userName, userPicture);
                                         requestList.add(request);
                                         //notify adapter of change in list of requests
                                         requestAdapter.notifyDataSetChanged();

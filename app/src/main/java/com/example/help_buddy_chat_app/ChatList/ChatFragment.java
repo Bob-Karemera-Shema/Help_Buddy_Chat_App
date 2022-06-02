@@ -48,6 +48,8 @@ public class ChatFragment extends Fragment {
     private ChildEventListener childEventListener;
     private Query query;
 
+    private List<String> userIds;
+
     public ChatFragment() {
         // Required empty public constructor
     }
@@ -70,6 +72,7 @@ public class ChatFragment extends Fragment {
 
         chatModelList = new ArrayList<>();
         chatListAdapter = new ChatListAdapter(getActivity(),chatModelList);
+        userIds = new ArrayList<>();
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         //To allow messages to be displayed from the latest
@@ -99,7 +102,7 @@ public class ChatFragment extends Fragment {
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
+                updateChatList(snapshot,false, snapshot.getKey());
             }
 
             @Override
@@ -131,9 +134,26 @@ public class ChatFragment extends Fragment {
 
         final String lastMessage, lastMessageTime, unreadCount;
 
-        lastMessage = "";
-        lastMessageTime = "";
-        unreadCount = "";
+        if(dataSnapshot.child(NodeNames.last_message).getValue() != null)
+        {
+            lastMessage = dataSnapshot.child(NodeNames.last_message).getValue().toString();
+        }
+        else
+        {
+            lastMessage = "";
+        }
+
+        if(dataSnapshot.child(NodeNames.last_message_time).getValue() != null)
+        {
+            lastMessageTime = dataSnapshot.child(NodeNames.last_message_time).getValue().toString();
+        }
+        else
+        {
+            lastMessageTime = "";
+        }
+
+        unreadCount = dataSnapshot.child(NodeNames.unread_count).getValue() == null?
+                "0":dataSnapshot.child(NodeNames.unread_count).getValue().toString();
 
         databaseReferenceUsers.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -143,11 +163,27 @@ public class ChatFragment extends Fragment {
                 String userName = snapshot.child(NodeNames.name).getValue()!=null?
                         snapshot.child(NodeNames.name).getValue().toString():"Unknown User";
 
-                ChatModel chatModel = new ChatModel(userId, userName, unreadCount, lastMessage,
-                        lastMessageTime);
+                /*
+                String userPicture = snapshot.child(NodeNames.picture).getValue() != null ?
+                        snapshot.child(NodeNames.picture).getValue().toString() : "";*/
 
-                //add new chat to chat list
-                chatModelList.add(chatModel);
+                String userPicture = userId + ".jpg";
+
+                ChatModel chatModel = new ChatModel(userId, userName, userPicture, unreadCount,
+                        lastMessage, lastMessageTime);
+
+                if(isNew)
+                {
+                    //add new chat to chat list
+                    chatModelList.add(chatModel);
+                    userIds.add(userId);
+                }
+                else
+                {
+                    int indexOfClickedChat = userIds.indexOf(userId);
+                    chatModelList.set(indexOfClickedChat, chatModel);
+                }
+
                 chatListAdapter.notifyDataSetChanged();
             }
 

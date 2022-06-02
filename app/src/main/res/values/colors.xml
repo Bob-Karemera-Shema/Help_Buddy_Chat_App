@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="gray_separator">#BBBBBB</color>
     <color name="linkColor">#00BCD4</color>
+    <color name="chat_background">#ededed</color>
 </resources>
